@@ -2,6 +2,7 @@ video_settings_menu_font = text_a5
 black_highway = 0
 auto_activate_Star_power = 0
 disable_hit_note_fx = 0
+disable_fc = 0
 no_miss = 0
 script create_modmenu \{popup = 0}
 	kill_start_key_binding
@@ -162,7 +163,7 @@ script create_modmenu \{popup = 0}
 	CreateScreenElement {
 		type = TextElement
 		id = toggle_hit_note_fx_text
-		text = 'Hit Note FX: OFF'
+		text = 'Disable Hit Note FX: OFF'
 		scale = 1
 		rgba = [255 255 255 255]
 		parent = vs_vmenu
@@ -213,6 +214,25 @@ script create_modmenu \{popup = 0}
 	GetScreenElementDims id = <id>
 	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
 
+	CreateScreenElement {
+		type = TextElement
+		id = disable_fc_text
+		text = 'Disable FC Text: OFF'
+		scale = 1
+		rgba = [255 255 255 255]
+		parent = vs_vmenu
+		font = text_a5
+		pos = (0.0, 240.0)
+		event_handlers = [
+			{focus vom_focus params = {item = calibrate popup = <popup>}}
+			{unfocus vom_unfocus params = {item = calibrate popup = <popup>}}
+			{pad_choose togglefctext}
+		]
+	}
+	<id> :SetTags hilite_pos = (0.0, 240.0)
+	GetScreenElementDims id = <id>
+	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
+
 
 
 
@@ -239,9 +259,9 @@ script create_modmenu \{popup = 0}
 		SetScreenElementProps \{id = toggle_auto_activating_star_power text = 'Auto Activating Star Power: ON'}
 	endif	
 	if (disable_hit_note_fx = 1)
-		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Hit Note FX: ON'}
+		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Disable Hit Note FX: ON'}
 	else
-		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Hit Note FX: OFF'}
+		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Disable Hit Note FX: OFF'}
 	endif	
 	if ($highway_height1 = 350)
 		SetScreenElementProps \{id = toggle_ds_lookin_highway_text text = 'DS Lookin Highway: OFF'}
@@ -253,6 +273,12 @@ script create_modmenu \{popup = 0}
 	else
 		SetScreenElementProps \{id = toggle_no_miss_text text = 'No Miss: OFF'}
 	endif
+	if (disable_fc = 0)
+		SetScreenElementProps \{id = disable_fc_text text = 'Disable FC Text: OFF'}
+	else
+		SetScreenElementProps \{id = disable_fc_text text = 'Disable FC Text: ON'}
+	endif
+
 
 	if isps2
 		get_string_ps2 \{message = widescreen_string}
@@ -358,10 +384,10 @@ script togglehitnotefx
 	playsound \{cash}
 	if (disable_hit_note_fx = 1)
 		change \{disable_hit_note_fx = 0}
-		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Hit Note FX: OFF'}
+		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Disable Hit Note FX: OFF'}
 	else
 		change \{disable_hit_note_fx = 1}
-		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Hit Note FX: ON'}
+		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Disable Hit Note FX: ON'}
 	endif
 endscript
 
@@ -394,6 +420,17 @@ script togglenomiss
 		SetScreenElementProps \{id = toggle_no_miss_text text = 'No Miss: ON'}
 	endif
 endscript
+
+script togglefctext
+	if (disable_fc = 0)
+		change \{disable_fc = 1}
+		SetScreenElementProps \{id = disable_fc_text text = 'Disable FC Text: ON'}
+	else
+		change \{disable_fc = 0}
+		SetScreenElementProps \{id = disable_fc_text text = 'Disable FC Text: OFF'}
+	endif
+endscript
+
 
 
 

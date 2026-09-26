@@ -60,31 +60,33 @@ script play_intro
 
 	
 	if (($game_mode = p1_career) || ($game_mode = p1_quickplay))
-		CreateScreenElement {
-			type = TextElement
-			text = 'FC'
-			parent = root_window
-			id = fc_id
-			scale = 1.0
-			pos = (275.0, 445.0)
-			font = text_a6
-			rgba = 	[215 160 110 255]
-			alpha = 1
-			just = [left bottom]
-			z_priority = 99
-		}
-		CreateScreenElement {
-		    Type = SpriteElement
-		    Id = fc_glow
-		    parent = root_window
-		    texture = Char_Select_Hilite1
-		    Pos = (270.0, 455.0)
-		    rgba = [246 188 102 255]
-		    Scale = 1.0
-		    Alpha = 1.0
-		    z_priority = 1
-			just = [left bottom]
-	    } 
+		if (disable_fc = 0)
+			CreateScreenElement {
+				type = TextElement
+				text = 'FC'
+				parent = root_window
+				id = fc_id
+				scale = 1.0
+				pos = (275.0, 445.0)
+				font = text_a6
+				rgba = 	[215 160 110 255]
+				alpha = 1
+				just = [left bottom]
+				z_priority = 99
+			}
+			CreateScreenElement {
+				Type = SpriteElement
+				Id = fc_glow
+				parent = root_window
+				texture = Char_Select_Hilite1
+				Pos = (270.0, 455.0)
+				rgba = [246 188 102 255]
+				Scale = 1.0
+				Alpha = 1.0
+				z_priority = 1
+				just = [left bottom]
+			} 
+		endif
 	endif
 	if ($show_boss_helper_screen = 1)
 		return

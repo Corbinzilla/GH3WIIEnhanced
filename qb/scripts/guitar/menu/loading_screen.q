@@ -1,44 +1,16 @@
 loading_screen_tips = [
 	$string_ps2_loading_screen_tip_01
-	$string_ps2_loading_screen_tip_01
+
 	$string_ps2_loading_screen_tip_02
-	$string_ps2_loading_screen_tip_02
+
 	$string_ps2_loading_screen_tip_03
-	$string_ps2_loading_screen_tip_03
+
 	$string_ps2_loading_screen_tip_04
-	$string_ps2_loading_screen_tip_04
-	$string_ps2_loading_screen_tip_05
-	$string_ps2_loading_screen_tip_06
+
 	$string_ps2_loading_screen_tip_07
-	$string_ps2_loading_screen_tip_08
+
 	$string_ps2_loading_screen_tip_09
-	$string_ps2_loading_screen_tip_10
-	$string_ps2_loading_screen_tip_11
-	$string_ps2_loading_screen_tip_12
-	$string_ps2_loading_screen_tip_13
-	$string_ps2_loading_screen_tip_14
-	$string_ps2_loading_screen_tip_15
-	$string_ps2_loading_screen_tip_16
-	$string_ps2_loading_screen_tip_17
-	$string_ps2_loading_screen_tip_18
-	$string_ps2_loading_screen_tip_19
-	$string_ps2_loading_screen_tip_20
-	$string_ps2_loading_screen_tip_21
-	$string_ps2_loading_screen_tip_22
-	$string_ps2_loading_screen_tip_23
-	$string_ps2_loading_screen_tip_24
-	$string_ps2_loading_screen_tip_25
-	$string_ps2_loading_screen_tip_26
-	$string_ps2_loading_screen_tip_27
-	$string_ps2_loading_screen_tip_28
-	$string_ps2_loading_screen_tip_29
-	$string_ps2_loading_screen_tip_30
-	$string_ps2_loading_screen_tip_31
-	$string_ps2_loading_screen_tip_32
-	$string_ps2_loading_screen_tip_33
-	$string_ps2_loading_screen_tip_35
-	$string_ps2_loading_screen_tip_36
-	$string_ps2_loading_screen_tip_37
+
 ]
 g_loading_screen_split_container_id = id
 

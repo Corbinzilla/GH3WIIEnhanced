@@ -1036,26 +1036,27 @@ script hud_flip_note_streak_num
 endscript
 
 script createmissedtext
-	if ScreenElementExists \{id = u_missed_text}
+	if ($disable_miss = 0)
+		if ScreenElementExists \{id = u_missed_text}
 
-	else
-		CreateScreenElement {
-			type = TextElement
-			id = u_missed_text
-			parent = root_window
-			text = 'Miss'
-			pos = (270.0, 465.0)
-			rgba = [255 255 255 255]
-			scale = 1
-			z_priority = 999
-			font = text_a6
-			just = [left bottom]
-		
-		}
-		Wait 0.5 seconds
-		doScreenElementMorph id = u_missed_text alpha = 0 time = 0.5
-		Wait 0.5 seconds
-		DestroyScreenElement \{id = u_missed_text}
+			else
+				CreateScreenElement {
+					type = TextElement
+					id = u_missed_text
+					parent = root_window
+					text = 'Miss'
+					pos = (270.0, 465.0)
+					rgba = [255 255 255 255]
+					scale = 1
+					z_priority = 999
+					font = text_a6
+					just = [left bottom]
+				
+				}
+				Wait 0.5 seconds
+				doScreenElementMorph id = u_missed_text alpha = 0 time = 0.5
+				Wait 0.5 seconds
+				DestroyScreenElement \{id = u_missed_text}
+			endif
 	endif
-
 endscript

@@ -4,6 +4,7 @@ auto_activate_Star_power = 0
 disable_hit_note_fx = 0
 disable_fc = 0
 no_miss = 0
+disable_miss = 0
 script create_modmenu \{popup = 0}
 	kill_start_key_binding
 	CreateScreenElement \{type = ContainerElement
@@ -123,7 +124,6 @@ script create_modmenu \{popup = 0}
 	GetScreenElementDims id = <id>
 	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
 
-
 	CreateScreenElement {
 		type = TextElement
 		id = toggle_black_highway_text
@@ -231,12 +231,26 @@ script create_modmenu \{popup = 0}
 	}
 	<id> :SetTags hilite_pos = (0.0, 240.0)
 	GetScreenElementDims id = <id>
+	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))0
+
+	CreateScreenElement {
+		type = TextElement
+		id = disable_miss_text
+		text = 'Disable Miss Text: OFF'
+		scale = 1
+		rgba = [255 255 255 255]
+		parent = vs_vmenu
+		font = text_a5
+		pos = (0.0, 280.0)
+		event_handlers = [
+			{focus vom_focus params = {item = calibrate popup = <popup>}}
+			{unfocus vom_unfocus params = {item = calibrate popup = <popup>}}
+			{pad_choose togglemisstext}
+		]
+	}
+	<id> :SetTags hilite_pos = (0.0, 280.0)
+	GetScreenElementDims id = <id>
 	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
-
-
-
-
-
 
 
 
@@ -248,35 +262,47 @@ script create_modmenu \{popup = 0}
 	else
 		SetScreenElementProps \{id = toggle_light_show_text text = 'Light Show: ON'}
 	endif
+
 	if (black_highway = 0)
 		SetScreenElementProps \{id = toggle_black_highway_text text = 'Black Highway: OFF'}
 	else
 		SetScreenElementProps \{id = toggle_black_highway_text text = 'Black Highway: ON'}
 	endif
+
 	if ($auto_activate_Star_power = 0)
 		SetScreenElementProps \{id = toggle_auto_activating_star_power text = 'Auto Activating Star Power: OFF'}
 	else
 		SetScreenElementProps \{id = toggle_auto_activating_star_power text = 'Auto Activating Star Power: ON'}
 	endif	
+
 	if (disable_hit_note_fx = 1)
 		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Disable Hit Note FX: ON'}
 	else
 		SetScreenElementProps \{id = toggle_hit_note_fx_text text = 'Disable Hit Note FX: OFF'}
 	endif	
+
 	if ($highway_height1 = 350)
 		SetScreenElementProps \{id = toggle_ds_lookin_highway_text text = 'DS Lookin Highway: OFF'}
 	else
 		SetScreenElementProps \{id = toggle_ds_lookin_highway_text text = 'DS Lookin Highway: ON'}
 	endif
+
 	if (no_miss = 1)
 		SetScreenElementProps \{id = toggle_no_miss_text text = 'No Miss: ON'}
 	else
 		SetScreenElementProps \{id = toggle_no_miss_text text = 'No Miss: OFF'}
 	endif
+
 	if (disable_fc = 0)
 		SetScreenElementProps \{id = disable_fc_text text = 'Disable FC Text: OFF'}
 	else
 		SetScreenElementProps \{id = disable_fc_text text = 'Disable FC Text: ON'}
+	endif
+
+	if (disable_miss = 0)
+		SetScreenElementProps \{id = disable_miss_text text = 'Disable Miss Text: OFF'}
+	else
+		SetScreenElementProps \{id = disable_miss_text text = 'Disable Miss Text: ON'}
 	endif
 
 
@@ -428,6 +454,16 @@ script togglefctext
 	else
 		change \{disable_fc = 0}
 		SetScreenElementProps \{id = disable_fc_text text = 'Disable FC Text: OFF'}
+	endif
+endscript
+
+script togglemisstext 
+	if (disable_miss = 0)
+		change \{disable_miss = 1}
+		SetScreenElementProps \{id = disable_miss_text text = 'Disable Miss Text: ON'}
+	else
+		change \{disable_miss = 0}
+		SetScreenElementProps \{id = disable_miss_text text = 'Disable Miss Text: OFF'}
 	endif
 endscript
 

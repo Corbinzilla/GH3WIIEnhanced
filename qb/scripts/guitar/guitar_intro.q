@@ -219,6 +219,14 @@ script intro_song_info
 		doScreenElementMorph id = intro_performed_by_text alpha = 1 time = ($current_intro.song_title_fade_time / 1000.0)
 		doScreenElementMorph id = intro_artist_info_text alpha = 1 time = ($current_intro.song_title_fade_time / 1000.0)
 	endif
+	Wait \{2 seconds}
+	if (after_outro = 0)
+		if (($game_mode = p1_career) || ($game_mode = p1_quickplay)) 
+			doScreenElementMorph id = intro_song_info_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
+			doScreenElementMorph id = intro_artist_info_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
+			doScreenElementMorph id = intro_performed_by_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
+		endif
+	endif
 endscript
 
 script intro_highway_move 
@@ -273,10 +281,12 @@ script play_outro
 	if ScreenElementExists \{id = quickplay_container}
 		DestroyScreenElement \{id = quickplay_container}
 	endif
-	if (($game_mode = p1_career) || ($game_mode = p1_quickplay)) 
-		doScreenElementMorph id = intro_song_info_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
-		doScreenElementMorph id = intro_artist_info_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
-		doScreenElementMorph id = intro_performed_by_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
+	if (after_outro = 1)
+		if (($game_mode = p1_career) || ($game_mode = p1_quickplay)) 
+			doScreenElementMorph id = intro_song_info_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
+			doScreenElementMorph id = intro_artist_info_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
+			doScreenElementMorph id = intro_performed_by_text alpha = 0 time = ($current_intro.song_title_fade_time / 1000.0)
+		endif
 	endif
 	SongUnLoadFSBIfDownloaded
 	Kill_StarPower_Camera \{changecamera = 0}

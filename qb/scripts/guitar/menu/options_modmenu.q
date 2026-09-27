@@ -5,6 +5,7 @@ disable_hit_note_fx = 0
 disable_fc = 0
 no_miss = 0
 disable_miss = 0
+after_outro = 0
 script create_modmenu \{popup = 0}
 	kill_start_key_binding
 	CreateScreenElement \{type = ContainerElement
@@ -212,7 +213,7 @@ script create_modmenu \{popup = 0}
 	}
 	<id> :SetTags hilite_pos = (0.0, 200.0)
 	GetScreenElementDims id = <id>
-	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
+	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0)) 
 
 	CreateScreenElement {
 		type = TextElement
@@ -249,6 +250,26 @@ script create_modmenu \{popup = 0}
 		]
 	}
 	<id> :SetTags hilite_pos = (0.0, 280.0)
+	GetScreenElementDims id = <id>
+	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
+
+
+	CreateScreenElement {
+		type = TextElement
+		id = fadeinfoafteroutro_text
+		text = 'Fade Song Info Text On Outro: OFF'
+		scale = 1
+		rgba = [255 255 255 255]
+		parent = vs_vmenu
+		font = text_a5
+		pos = (0.0, 320.0)
+		event_handlers = [
+			{focus vom_focus params = {item = calibrate popup = <popup>}}
+			{unfocus vom_unfocus params = {item = calibrate popup = <popup>}}
+			{pad_choose tfsitoo}
+		]
+	}
+	<id> :SetTags hilite_pos = (0.0, 320.0)
 	GetScreenElementDims id = <id>
 	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
 
@@ -303,6 +324,12 @@ script create_modmenu \{popup = 0}
 		SetScreenElementProps \{id = disable_miss_text text = 'Disable Miss Text: OFF'}
 	else
 		SetScreenElementProps \{id = disable_miss_text text = 'Disable Miss Text: ON'}
+	endif
+
+	if (after_outro = 0)
+		SetScreenElementProps \{id = fadeinfoafteroutro_text text = 'Fade Song Info Text On Outro: OFF'}
+	else
+		SetScreenElementProps \{id = fadeinfoafteroutro_text text = 'Fade Song Info Text On Outro: ON'}
 	endif
 
 
@@ -464,6 +491,16 @@ script togglemisstext
 	else
 		change \{disable_miss = 0}
 		SetScreenElementProps \{id = disable_miss_text text = 'Disable Miss Text: OFF'}
+	endif
+endscript
+
+script tfsitoo
+	if (after_outro = 0)
+		change \{after_outro = 1}
+		SetScreenElementProps \{id = fadeinfoafteroutro_text text = 'Fade Song Info Text On Outro: ON'}
+	else
+		change \{after_outro = 0}
+		SetScreenElementProps \{id = fadeinfoafteroutro_text text = 'Fade Song Info Text On Outro: OFF'}
 	endif
 endscript
 

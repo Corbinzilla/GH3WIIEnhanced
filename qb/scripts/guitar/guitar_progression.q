@@ -194,7 +194,7 @@ GH3_General_Songs = {
 		setlist_icon = setlist_icon_ODEON
 	}
 	tier5 = {
-		title = '5. Bighouse bluesssss'
+		title = '5. Bighouse blues'
 		songs = [
 			holidayincambodia
 			rockulikeahurricane

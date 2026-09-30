@@ -6,6 +6,7 @@ disable_fc = 0
 no_miss = 0
 disable_miss = 0
 after_outro = 0
+roygb = 0
 script create_modmenu \{popup = 0}
 	kill_start_key_binding
 	CreateScreenElement \{type = ContainerElement
@@ -24,11 +25,11 @@ script create_modmenu \{popup = 0}
 		displayText \{parent = vom_container
 			pos = (0.0, 0.0)
 			just = [
-				right
+				bottom
 				bottom
 			]
 			text = 'Mod Settings'
-			scale = 1.5
+			scale = 1.0
 			rgba = [
 				240
 				235
@@ -40,7 +41,7 @@ script create_modmenu \{popup = 0}
 		GetScreenElementDims id = <id>
 		if (<width> > 375)
 			SetScreenElementProps id = <id> scale = 1
-			fit_text_in_rectangle id = <id> dims = ((400.0, 0.0) + <Height> * (0.0, 1.0))
+			fit_text_in_rectangle id = <id> dims = ((200.0, 0.0) + <Height> * (0.0, 1.0))
 		endif
 		create_menu_backdrop \{texture = Venue_BG}
 
@@ -115,6 +116,7 @@ script create_modmenu \{popup = 0}
 		rgba = [255 255 255 255]
 		parent = vs_vmenu
 		pos = (0.0, 0.0)
+		text_a5
 		event_handlers = [
 			{focus vom_focus params = {item = calibrate popup = <popup>}}
 			{unfocus vom_unfocus params = {item = calibrate popup = <popup>}}
@@ -215,6 +217,8 @@ script create_modmenu \{popup = 0}
 	GetScreenElementDims id = <id>
 	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0)) 
 
+
+
 	CreateScreenElement {
 		type = TextElement
 		id = disable_fc_text
@@ -232,7 +236,7 @@ script create_modmenu \{popup = 0}
 	}
 	<id> :SetTags hilite_pos = (0.0, 240.0)
 	GetScreenElementDims id = <id>
-	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))0
+	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
 
 	CreateScreenElement {
 		type = TextElement
@@ -270,6 +274,26 @@ script create_modmenu \{popup = 0}
 		]
 	}
 	<id> :SetTags hilite_pos = (0.0, 320.0)
+	GetScreenElementDims id = <id>
+	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
+
+
+	CreateScreenElement {
+		type = TextElement
+		id = roygb_text
+		text = 'ROYGB: OFF'
+		scale = 1
+		rgba = [255 255 255 255]
+		parent = vs_vmenu
+		font = text_a5
+		pos = (0.0, 360.0)
+		event_handlers = [
+			{focus vom_focus params = {item = calibrate popup = <popup>}}
+			{unfocus vom_unfocus params = {item = calibrate popup = <popup>}}
+			{pad_choose toggleroygb}
+		]
+	}
+	<id> :SetTags hilite_pos = (0.0, 360.0)
 	GetScreenElementDims id = <id>
 	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
 
@@ -330,6 +354,12 @@ script create_modmenu \{popup = 0}
 		SetScreenElementProps \{id = fadeinfoafteroutro_text text = 'Fade Song Info Text On Outro: OFF'}
 	else
 		SetScreenElementProps \{id = fadeinfoafteroutro_text text = 'Fade Song Info Text On Outro: ON'}
+	endif
+
+	if (roygb = 0)
+		SetScreenElementProps \{id = roygb_text text = 'ROYGB: OFF'}
+	else
+		SetScreenElementProps \{id = roygb_text text = 'ROYGB: ON'}
 	endif
 
 
@@ -475,6 +505,7 @@ script togglenomiss
 endscript
 
 script togglefctext
+	playsound \{cash}
 	if (disable_fc = 0)
 		change \{disable_fc = 1}
 		SetScreenElementProps \{id = disable_fc_text text = 'Disable FC Text: ON'}
@@ -485,6 +516,7 @@ script togglefctext
 endscript
 
 script togglemisstext 
+	playsound \{cash}
 	if (disable_miss = 0)
 		change \{disable_miss = 1}
 		SetScreenElementProps \{id = disable_miss_text text = 'Disable Miss Text: ON'}
@@ -495,6 +527,7 @@ script togglemisstext
 endscript
 
 script tfsitoo
+	playsound \{cash}
 	if (after_outro = 0)
 		change \{after_outro = 1}
 		SetScreenElementProps \{id = fadeinfoafteroutro_text text = 'Fade Song Info Text On Outro: ON'}
@@ -503,6 +536,286 @@ script tfsitoo
 		SetScreenElementProps \{id = fadeinfoafteroutro_text text = 'Fade Song Info Text On Outro: OFF'}
 	endif
 endscript
+
+script toggleroygb
+	playsound \{cash}
+	if (roygb = 0)
+		change \{roygb = 1}
+		SetScreenElementProps \{id = roygb_text text = 'ROYGB: ON'}
+		change \{button_up_models = {
+			green = {
+				name = button_g
+				name_string = 'button_g'
+				material_lip = sys_NowBar_Button01_Red_Lip_sys_NowBar_Button01_Red_Lip
+				material_mid = sys_NowBar_Button01_Red_Mid2_sys_NowBar_Button01_Red_Mid2
+				material_head = sys_NowBar_Head_Red_sys_NowBar_Head_Red
+				material_head_lit = sys_NowBar_Head_RedL_sys_NowBar_Head_RedL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Red_Down_sys_NowBar_Button01_Red_Down
+			}
+			red = {
+				name = button_r
+				name_string = 'button_r'
+				material_lip = sys_NowBar_Button01_Orange_Lip_sys_NowBar_Button01_Orange_Lip
+				material_mid = sys_NowBar_Button01_Orange_Mid2_sys_NowBar_Button01_Orange_Mid2
+				material_head = sys_NowBar_Head_Orange_sys_NowBar_Head_Orange
+				material_head_lit = sys_NowBar_Head_OrangeL_sys_NowBar_Head_OrangeL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Orange_Down_sys_NowBar_Button01_Orange_Down
+			}
+			Yellow = {
+				name = button_y
+				name_string = 'button_y'
+				material_lip = sys_NowBar_Button01_Yellow_Lip_sys_NowBar_Button01_Yellow_Lip
+				material_mid = sys_NowBar_Button01_Yellow_Mid2_sys_NowBar_Button01_Yellow_Mid2
+				material_head = sys_NowBar_Head_Yellow_sys_NowBar_Head_Yellow
+				material_head_lit = sys_NowBar_Head_YellowL_sys_NowBar_Head_YellowL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Yellow_Down_sys_NowBar_Button01_Yellow_Down
+			}
+			Blue = {
+				name = button_b
+				name_string = 'button_b'
+				material_lip = sys_NowBar_Button01_Green_Lip_sys_NowBar_Button01_Green_Lip
+				material_mid = sys_NowBar_Button01_Green_Mid2_sys_NowBar_Button01_Green_Mid2
+				material_head = sys_NowBar_Head_Green_sys_NowBar_Head_Green
+				material_head_lit = sys_NowBar_Head_GreenL_sys_NowBar_Head_GreenL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Green_Down_sys_NowBar_Button01_Green_Down
+			}
+			Orange = {
+				name = button_o
+				name_string = 'button_o'
+				material_lip = sys_NowBar_Button01_Blue_Lip_sys_NowBar_Button01_Blue_Lip
+				material_mid = sys_NowBar_Button01_Blue_Mid2_sys_NowBar_Button01_Blue_Mid2
+				material_head = sys_NowBar_Head_Blue_sys_NowBar_Head_Blue
+				material_head_lit = sys_NowBar_Head_BlueL_sys_NowBar_Head_BlueL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Blue_Down_sys_NowBar_Button01_Blue_Down
+			}
+		}}
+		change \{button_models = {
+			green = {
+				gem_material = sys_Gem2D_Red_sys_Gem2D_Red
+				gem_hammer_material = sys_Gem2D_Red_hammer_sys_Gem2D_Red_hammer
+				star_material = sys_Star2D_Red_sys_Star2D_Red
+				star_hammer_material = sys_Star2D_Red_Hammer_sys_Star2D_Red_Hammer
+				battle_star_material = sys_BattleGEM_RED01_sys_BattleGEM_RED01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_RED01_sys_BattleGEM_Hammer_RED01
+				whammy_material = sys_Whammy2D_Red_sys_Whammy2D_Red
+				whammy_material_glow = sys_Whammy2D_Red_sys_Whammy2D_Red_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_g
+			}
+			red = {
+				gem_material = sys_Gem2D_Orange_sys_Gem2D_Orange
+				gem_hammer_material = sys_Gem2D_Orange_hammer_sys_Gem2D_Orange_hammer
+				star_material = sys_Star2D_Orange_sys_Star2D_Orange
+				star_hammer_material = sys_Star2D_Orange_Hammer_sys_Star2D_Orange_Hammer
+				battle_star_material = sys_BattleGEM_Orange01_sys_BattleGEM_Orange01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_Orange01_sys_BattleGEM_Hammer_Orange01
+				whammy_material = sys_Whammy2D_Orange_sys_Whammy2D_Orange
+				whammy_material_glow = sys_Whammy2D_Orange_sys_Whammy2D_Orange_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_r
+			}
+			Yellow = {
+				gem_material = sys_Gem2D_Yellow_sys_Gem2D_Yellow 
+				gem_hammer_material = sys_Gem2D_Yellow_hammer_sys_Gem2D_Yellow_hammer
+				star_material = sys_Star2D_Yellow_sys_Star2D_Yellow
+				star_hammer_material = sys_Star2D_Yellow_Hammer_sys_Star2D_Yellow_Hammer
+				battle_star_material = sys_BattleGEM_Yellow01_sys_BattleGEM_Yellow01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_Yellow01_sys_BattleGEM_Hammer_Yellow01
+				whammy_material = sys_Whammy2D_Yellow_sys_Whammy2D_Yellow
+				whammy_material_glow = sys_Whammy2D_Yellow_sys_Whammy2D_Yellow_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_y
+			}
+			Blue = {
+				gem_material = sys_Gem2D_Green_sys_Gem2D_Green	
+				gem_hammer_material = sys_Gem2D_Green_hammer_sys_Gem2D_Green_hammer
+				star_material = sys_Star2D_Green_sys_Star2D_Green
+				star_hammer_material = sys_Star2D_Green_Hammer_sys_Star2D_Green_Hammer
+				battle_star_material = sys_BattleGEM_Green01_sys_BattleGEM_Green01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_Green01_sys_BattleGEM_Hammer_Green01
+				whammy_material = sys_Whammy2D_Green_sys_Whammy2D_Green
+				whammy_material_glow = sys_Whammy2D_Green_sys_Whammy2D_Green_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_b
+			}
+			Orange = {
+				gem_material = sys_Gem2D_Blue_sys_Gem2D_Blue
+				gem_hammer_material = sys_Gem2D_Blue_hammer_sys_Gem2D_Blue_hammer
+				star_material = sys_Star2D_Blue_sys_Star2D_Blue
+				star_hammer_material = sys_Star2D_Blue_Hammer_sys_Star2D_Blue_Hammer
+				battle_star_material = sys_BattleGEM_Blue01_sys_BattleGEM_Blue01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_Blue01_sys_BattleGEM_Hammer_Blue01
+				whammy_material = sys_Whammy2D_Blue_sys_Whammy2D_Blue
+				whammy_material_glow = sys_Whammy2D_Blue_sys_Whammy2D_Blue_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_o
+			}
+		}}
+	else
+	
+		change \{roygb = 0}
+		SetScreenElementProps \{id = roygb_text text = 'ROYGB: OFF'}
+		change \{button_up_models = {
+			green = {
+				name = button_g
+				name_string = 'button_g'
+				material_lip = sys_NowBar_Button01_Green_Lip_sys_NowBar_Button01_Green_Lip
+				material_mid = sys_NowBar_Button01_Green_Mid2_sys_NowBar_Button01_Green_Mid2
+				material_head = sys_NowBar_Head_Green_sys_NowBar_Head_Green
+				material_head_lit = sys_NowBar_Head_GreenL_sys_NowBar_Head_GreenL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Green_Down_sys_NowBar_Button01_Green_Down
+			}
+			red = {
+				name = button_r
+				name_string = 'button_r'
+				material_lip = sys_NowBar_Button01_Red_Lip_sys_NowBar_Button01_Red_Lip
+				material_mid = sys_NowBar_Button01_Red_Mid2_sys_NowBar_Button01_Red_Mid2
+				material_head = sys_NowBar_Head_Red_sys_NowBar_Head_Red
+				material_head_lit = sys_NowBar_Head_RedL_sys_NowBar_Head_RedL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Red_Down_sys_NowBar_Button01_Red_Down
+			}
+			Yellow = {
+				name = button_y
+				name_string = 'button_y'
+				material_lip = sys_NowBar_Button01_Yellow_Lip_sys_NowBar_Button01_Yellow_Lip
+				material_mid = sys_NowBar_Button01_Yellow_Mid2_sys_NowBar_Button01_Yellow_Mid2
+				material_head = sys_NowBar_Head_Yellow_sys_NowBar_Head_Yellow
+				material_head_lit = sys_NowBar_Head_YellowL_sys_NowBar_Head_YellowL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Yellow_Down_sys_NowBar_Button01_Yellow_Down
+			}
+			Blue = {
+				name = button_b
+				name_string = 'button_b'
+				material_lip = sys_NowBar_Button01_Blue_Lip_sys_NowBar_Button01_Blue_Lip
+				material_mid = sys_NowBar_Button01_Blue_Mid2_sys_NowBar_Button01_Blue_Mid2
+				material_head = sys_NowBar_Head_Blue_sys_NowBar_Head_Blue
+				material_head_lit = sys_NowBar_Head_BlueL_sys_NowBar_Head_BlueL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Blue_Down_sys_NowBar_Button01_Blue_Down
+			}
+			Orange = {
+				name = button_o
+				name_string = 'button_o'
+				material_lip = sys_NowBar_Button01_Orange_Lip_sys_NowBar_Button01_Orange_Lip
+				material_mid = sys_NowBar_Button01_Orange_Mid2_sys_NowBar_Button01_Orange_Mid2
+				material_head = sys_NowBar_Head_Orange_sys_NowBar_Head_Orange
+				material_head_lit = sys_NowBar_Head_OrangeL_sys_NowBar_Head_OrangeL
+				material_neck = sys_NowBar_Neck01_sys_NowBar_Neck01
+				material_down = sys_NowBar_Button01_Orange_Down_sys_NowBar_Button01_Orange_Down
+			}
+		}}
+		change \{button_models = {
+			green = {
+				gem_material = sys_Gem2D_Green_sys_Gem2D_Green	
+				gem_hammer_material = sys_Gem2D_Green_hammer_sys_Gem2D_Green_hammer
+				star_material = sys_Star2D_Green_sys_Star2D_Green
+				star_hammer_material = sys_Star2D_Green_Hammer_sys_Star2D_Green_Hammer
+				battle_star_material = sys_BattleGEM_Green01_sys_BattleGEM_Green01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_Green01_sys_BattleGEM_Hammer_Green01
+				whammy_material = sys_Whammy2D_Green_sys_Whammy2D_Green
+				whammy_material_glow = sys_Whammy2D_Green_sys_Whammy2D_Green_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_g
+			}
+			red = {
+				gem_material = sys_Gem2D_Red_sys_Gem2D_Red
+				gem_hammer_material = sys_Gem2D_Red_hammer_sys_Gem2D_Red_hammer
+				star_material = sys_Star2D_Red_sys_Star2D_Red
+				star_hammer_material = sys_Star2D_Red_Hammer_sys_Star2D_Red_Hammer
+				battle_star_material = sys_BattleGEM_RED01_sys_BattleGEM_RED01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_RED01_sys_BattleGEM_Hammer_RED01
+				whammy_material = sys_Whammy2D_Red_sys_Whammy2D_Red
+				whammy_material_glow = sys_Whammy2D_Red_sys_Whammy2D_Red_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_r
+			}
+			Yellow = {
+				gem_material = sys_Gem2D_Yellow_sys_Gem2D_Yellow 
+				gem_hammer_material = sys_Gem2D_Yellow_hammer_sys_Gem2D_Yellow_hammer
+				star_material = sys_Star2D_Yellow_sys_Star2D_Yellow
+				star_hammer_material = sys_Star2D_Yellow_Hammer_sys_Star2D_Yellow_Hammer
+				battle_star_material = sys_BattleGEM_Yellow01_sys_BattleGEM_Yellow01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_Yellow01_sys_BattleGEM_Hammer_Yellow01
+				whammy_material = sys_Whammy2D_Yellow_sys_Whammy2D_Yellow
+				whammy_material_glow = sys_Whammy2D_Yellow_sys_Whammy2D_Yellow_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_y
+			}
+			Blue = {
+				gem_material = sys_Gem2D_Blue_sys_Gem2D_Blue
+				gem_hammer_material = sys_Gem2D_Blue_hammer_sys_Gem2D_Blue_hammer
+				star_material = sys_Star2D_Blue_sys_Star2D_Blue
+				star_hammer_material = sys_Star2D_Blue_Hammer_sys_Star2D_Blue_Hammer
+				battle_star_material = sys_BattleGEM_Blue01_sys_BattleGEM_Blue01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_Blue01_sys_BattleGEM_Hammer_Blue01
+				whammy_material = sys_Whammy2D_Blue_sys_Whammy2D_Blue
+				whammy_material_glow = sys_Whammy2D_Blue_sys_Whammy2D_Blue_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_b
+			}
+			Orange = {
+				gem_material = sys_Gem2D_Orange_sys_Gem2D_Orange
+				gem_hammer_material = sys_Gem2D_Orange_hammer_sys_Gem2D_Orange_hammer
+				star_material = sys_Star2D_Orange_sys_Star2D_Orange
+				star_hammer_material = sys_Star2D_Orange_Hammer_sys_Star2D_Orange_Hammer
+				battle_star_material = sys_BattleGEM_Orange01_sys_BattleGEM_Orange01
+				battle_star_hammer_material = sys_BattleGEM_Hammer_Orange01_sys_BattleGEM_Hammer_Orange01
+				whammy_material = sys_Whammy2D_Orange_sys_Whammy2D_Orange
+				whammy_material_glow = sys_Whammy2D_Orange_sys_Whammy2D_Orange_glow
+				star_power_material = sys_Gem2D_StarPower_sys_Gem2D_StarPower
+				star_power_hammer_material = sys_Gem2D_StarPower_hammer_sys_Gem2D_StarPower_hammer
+				star_power_whammy_material = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower
+				star_power_whammy_material_glow = sys_Whammy2D_StarPower_sys_Whammy2D_StarPower_glow
+				dead_whammy = sys_Whammy2D_Dead_sys_Whammy2D_Dead
+				name = button_o
+			}
+		}}
+	endif
+endscript		
 
 
 

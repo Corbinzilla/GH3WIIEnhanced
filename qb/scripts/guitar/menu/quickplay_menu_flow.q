@@ -494,7 +494,11 @@ script quickplay_start_song \{device_num = 0}
 	GetRandomValue a = 0 b = (<num_venues> -1) name = random_venue_index Integer
 	get_valid_venue_index venue_index = <random_venue_index>
 	get_LevelZoneArray_checksum index = <index>
-	change current_level = <level_checksum>
+	if ($black_background = 0)
+		change current_level = <level_checksum>
+	else
+		Change current_level = z_viewer
+	endif
 
 	start_song device_num = <device_num>
 endscript

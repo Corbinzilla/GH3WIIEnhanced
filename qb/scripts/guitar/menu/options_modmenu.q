@@ -7,6 +7,7 @@ no_miss = 0
 disable_miss = 0
 after_outro = 0
 roygb = 0
+black_background = 0
 script create_modmenu \{popup = 0}
 	kill_start_key_binding
 	CreateScreenElement \{type = ContainerElement
@@ -298,6 +299,25 @@ script create_modmenu \{popup = 0}
 	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
 
 
+	CreateScreenElement {
+		type = TextElement
+		id = black_background_text
+		text = 'Black Background: OFF'
+		scale = 1
+		rgba = [255 255 255 255]
+		parent = vs_vmenu
+		font = text_a5
+		pos = (0.0, 400.0)
+		event_handlers = [
+			{focus vom_focus params = {item = calibrate popup = <popup>}}
+			{unfocus vom_unfocus params = {item = calibrate popup = <popup>}}
+			{pad_choose toggleblackbg}
+		]
+	}
+	<id> :SetTags hilite_pos = (0.0, 400.0)
+	GetScreenElementDims id = <id>
+	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
+
 
 
 
@@ -360,6 +380,13 @@ script create_modmenu \{popup = 0}
 		SetScreenElementProps \{id = roygb_text text = 'ROYGB: OFF'}
 	else
 		SetScreenElementProps \{id = roygb_text text = 'ROYGB: ON'}
+	endif
+
+
+	if (black_background = 0)
+		SetScreenElementProps \{id = black_background_text text = 'Black Background: OFF'}
+	else
+		SetScreenElementProps \{id = black_background_text text = 'Black Background: ON'}
 	endif
 
 
@@ -816,6 +843,17 @@ script toggleroygb
 		}}
 	endif
 endscript		
+
+script toggleblackbg
+	playsound \{cash}
+	if (black_background = 0)
+		SetScreenElementProps \{id = black_background_text text = 'Black Background: ON'}
+		change \{black_background = 1}
+	else
+		SetScreenElementProps \{id = black_background_text text = 'Black Background: OFF'}
+		change \{black_background = 0}
+	endif
+endscript
 
 
 

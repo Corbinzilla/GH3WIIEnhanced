@@ -938,11 +938,10 @@ script create_main_menu
 endscript
 script move_downloading_text
 	begin
-		downloading_mod :DoMorph pos = <original_pos> scale = 1.5 rgba = [190 225 255 255] alpha = 1 rot_angle = 3
+		downloading_mod :DoMorph pos = <original_pos> scale = 1.5 rgba = [190 225 255 255] alpha = 1 rot_angle = 3 time = 0.5
 		downloading_mod :DoMorph pos = <original_pos> scale = <base_scale> alpha = 1 time = 0.5 rot_angle = -3 motion = ease_in
 		downloading_mod :DoMorph pos = <original_pos> scale = (<base_scale> * <scale_big_mult>) time = 0.5 rot_angle = 4 motion = ease_out
 		downloading_mod :DoMorph pos = <original_pos> scale = <base_scale> time = 0.5 rot_angle = -5 rgba = [145 215 235 255] motion = ease_in
-		downloading_mod :DoMorph pos = <original_pos> scale = 1.5 rgba = [190 225 255 255] alpha = 1 rot_angle = 3 time = 0.5
 	repeat
 endscript
 

@@ -69,7 +69,7 @@ script play_intro
 				scale = 1.0
 				pos = (275.0, 445.0)
 				font = text_a6
-				rgba = 	[215 160 110 255]
+				rgba = 	[247 204 140 255]
 				alpha = 1
 				just = [left bottom]
 				z_priority = 99

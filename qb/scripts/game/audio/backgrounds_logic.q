@@ -350,8 +350,8 @@ script WaitForOneShotSoundEventToEnd \{immediate = 0}
 	repeat
 endscript
 
-script UpdateBackgroundVolume \{vol = 180}
-	change Backgrounds_Master_Volume = ((<vol> / 180.0) * 50.0)
+script UpdateBackgroundVolume \{vol = 11}
+	change Backgrounds_Master_Volume = ((<vol> / 11.0) * 50.0)
 	if NOT ($SFX_Background_Current_Checksum = none)
 		if ($SFX_Background_IS_Crossfading = false)
 			SetSoundParams ($SFX_Background_Current_Checksum) vol = ($Backgrounds_Master_Volume)

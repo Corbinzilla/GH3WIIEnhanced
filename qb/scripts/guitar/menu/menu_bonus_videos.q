@@ -220,7 +220,7 @@ script create_bonus_videos_menu \{came_from_movie = 0}
 	CreateScreenElement {
 		<text_params>
 		event_handlers = [
-			{pad_choose menu_bonus_videos_play_video params = {text = ($bv_text_array [3].text) movie = 'Slash'}}
+			{pad_choose menu_bonus_videos_play_video params = {text = ($bv_text_array [3].text) movie = 'slash'}}
 		]
 	}
 	CreateScreenElement {
@@ -292,7 +292,7 @@ bv_text_array = [
 		id = brettmichaels
 	}
 	{
-		text = 'Slash'
+		text = 'SLASH'
 		id = slash
 	}
 	{

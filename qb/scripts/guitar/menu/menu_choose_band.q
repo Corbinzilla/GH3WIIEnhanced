@@ -145,7 +145,7 @@ script create_choose_band_menu
 	<loop_count> = 5
 	band_index = 1
 	begin
-	band_name = '- NEW BAND?? -'
+	band_name = '- NEW BAND -'
 	get_band_game_mode_name
 	FormatText checksumname = bandname_id 'band%i_info_%g' i = <band_index> g = <game_mode_name>
 	GetGlobalTags <bandname_id> param = name

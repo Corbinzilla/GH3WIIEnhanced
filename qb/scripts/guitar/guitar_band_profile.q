@@ -496,7 +496,7 @@ Musician_Profiles = [
 		ragdoll_collision_group = RagdollCollisionGroups_Slash
 		ik_params = Hero_Ik_params
 		musician_body = {
-			desc_id = Guitarist_Morello_Outfit1_Style1
+			desc_id = Guitarist_Slash_Outfit1_Style1
 		}
 		musician_instrument = {
 			desc_id = Instrument_Guitar_Slash01

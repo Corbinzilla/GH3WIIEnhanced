@@ -32,8 +32,18 @@ script create_audio_settings_menu \{popup = 0}
 			spacing = 30
 		}
 		create_pause_menu_frame z = (<z> - 10)
-	change \{menu_focus_color = [0 255 255 255]}
-	change \{menu_unfocus_color = [0 255 199 255]}
+		change \{menu_focus_color = [
+				254
+				204
+				55
+				255
+			]}
+		change \{menu_unfocus_color = [
+				182
+				182
+				182
+				255
+			]}
 		text_params = {
 			parent = as_vmenu
 			type = TextElement
@@ -80,7 +90,7 @@ script create_audio_settings_menu \{popup = 0}
 				text = <player_paused_text>
 				rgba = [186 105 0 255]
 				scale = (0.45000002, 0.6)
-				z = (<z> + 180)
+				z = (<z> + 11)
 				font = text_a6
 			}
 			GetScreenElementDims id = <id>
@@ -267,7 +277,7 @@ script create_audio_settings_menu \{popup = 0}
 			pos = (744.0, 146.0)
 			dims = (74.0, 318.0)
 			z = 10}
-		displaySprite parent = aom_container id = aom_pointer tex = Options_Audio_Pointer_V2 pos = ($as_pointer_pos [0]) dims = (256.0, 128.0) relative_scale z = 180
+		displaySprite parent = aom_container id = aom_pointer tex = Options_Audio_Pointer_V2 pos = ($as_pointer_pos [0]) dims = (256.0, 128.0) relative_scale z = 11
 		displaySprite parent = aom_container id = aom_knob_line_1 tex = Options_Audio_Knob_Line pos = ($aom_menu_pos + (48.0, 44.0)) dims = (48.0, 12.0) z = 10 rgba = [230 190 70 255] just = [1.0 0.0]
 		displaySprite parent = aom_container id = aom_knob_line_2 tex = Options_Audio_Knob_Line pos = ($aom_menu_pos + (48.0, 169.0)) dims = (48.0, 12.0) z = 10 rgba = [230 190 70 255] just = [1.0 0.0]
 		displaySprite parent = aom_container id = aom_knob_line_3 tex = Options_Audio_Knob_Line pos = ($aom_menu_pos + (48.0, 294.0)) dims = (48.0, 12.0) z = 10 rgba = [230 190 70 255] just = [1.0 0.0]
@@ -681,7 +691,7 @@ script menu_audio_settings_press_back
 	change \{audio_settings_locked = 0}
 endscript
 
-script ChangeSpinalTapVolume \{spinal_tap_volume_max = 180}
+script ChangeSpinalTapVolume \{spinal_tap_volume_max = 11}
 	<spinal_tap_volume> = (<spinal_tap_volume> + <change>)
 	if (<spinal_tap_volume> < 0)
 		<spinal_tap_volume> = 0
@@ -921,7 +931,7 @@ endscript
 
 script menu_audio_settings_update_band_volume \{vol = 11}
 	SetMenuMusicVolume vol = <vol>
-	change Preview_Master_Volume = ((<vol> / 180.0))
+	change Preview_Master_Volume = ((<vol> / 11.0))
 	menu_audio_settings_get_buss_volume volume = <vol>
 	SoundBussUnlock \{User_Band}
 	SetSoundBussParams {User_Band = {vol = <vol>}}

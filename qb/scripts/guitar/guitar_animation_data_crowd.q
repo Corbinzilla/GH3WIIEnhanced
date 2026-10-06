@@ -344,7 +344,7 @@ crowd_animations_Colin = {
 				GH3_crowd_Colin_special_slow3
 			]
 			Med = [
-				GH3__jerod_special_slow3
+				GH3_crowd_jerod_special_slow3
 			]
 			Slow = [
 				GH3_crowd_Colin_special_slow3

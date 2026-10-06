@@ -3430,7 +3430,6 @@ script WritePerformance
 			<num_cheats> = (<num_cheats> + 1)
 		endif
 	endif
-	bret_michaels = bret_michaels
 
 	if IsNgc
 		if ($Cheat_LargeGems = 1)

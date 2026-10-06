@@ -1745,27 +1745,27 @@ Menu_Music_SE_container = {
 	Sounds = {
 		Sound1 = {
 			Menu_Music_Stones
-			vol = 40
+			vol = 160
 		}
 		Sound2 = {
 			Menu_Music_Rage
-			vol = 40
+			vol = 105
 		}
 		Sound3 = {
 			Menu_Music_GNR
-			vol = 40
+			vol = 130
 		}
 		Sound4 = {
 			Menu_Music_EvenFlow
-			vol = 40
+			vol = 100
 		}
 		Sound5 = {
 			Menu_Music_Monsters
-			vol = 40
+			vol = 100
 		}
 		Sound6 = {
 			Menu_Music_BeforeIForget
-			vol = 40
+			vol = 100
 		}
 	}
 }
@@ -2548,7 +2548,7 @@ Song_Intro_Highway_Up_container = {
 	Sounds = {
 		Sound1 = {
 			Highway_Rise
-			vol = 340
+			vol = 115
 		}
 	}
 }

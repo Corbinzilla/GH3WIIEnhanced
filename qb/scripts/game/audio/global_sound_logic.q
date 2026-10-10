@@ -1960,26 +1960,28 @@ script GH3_SFX_Stop_Sounds_For_KillSong
 endscript
 
 script GH_SFX_Countoff_Logic 
-	get_song_struct song = ($current_song)
-	if StructureContains Structure = <song_struct> name = countoff
-		countoff_sound = (<song_struct>.countoff)
-	else
-		countoff_sound = 'sticks_normal'
-	endif
-	if (<velocity> > 99)
-		FormatText checksumname = sound_event_name 'Countoff_SFX_%s_Hard' s = <countoff_sound>
-	else
-		if (<velocity> > 74)
-			FormatText checksumname = sound_event_name 'Countoff_SFX_%s_Med' s = <countoff_sound>
+	if ($countoffvar = 1)
+		get_song_struct song = ($current_song)
+		if StructureContains Structure = <song_struct> name = countoff
+			countoff_sound = (<song_struct>.countoff)
 		else
-			if (<velocity> > 49)
-				FormatText checksumname = sound_event_name 'Countoff_SFX_%s_Soft' s = <countoff_sound>
+			countoff_sound = 'sticks_normal'
+		endif
+		if (<velocity> > 99)
+			FormatText checksumname = sound_event_name 'Countoff_SFX_%s_Hard' s = <countoff_sound>
+		else
+			if (<velocity> > 74)
+				FormatText checksumname = sound_event_name 'Countoff_SFX_%s_Med' s = <countoff_sound>
 			else
-				FormatText checksumname = sound_event_name 'Countoff_SFX_%s_Soft' s = <countoff_sound>
+				if (<velocity> > 49)
+					FormatText checksumname = sound_event_name 'Countoff_SFX_%s_Soft' s = <countoff_sound>
+				else
+					FormatText checksumname = sound_event_name 'Countoff_SFX_%s_Soft' s = <countoff_sound>
+				endif
 			endif
 		endif
+		SoundEvent event = <sound_event_name>
 	endif
-	SoundEvent event = <sound_event_name>
 endscript
 
 script GH_SFX_Training_Tuning_Strings 

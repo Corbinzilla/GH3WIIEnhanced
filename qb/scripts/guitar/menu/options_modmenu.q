@@ -8,6 +8,7 @@ disable_miss = 0
 after_outro = 0
 roygb = 0
 black_background = 0
+countoffvar = 0
 script create_modmenu \{popup = 0}
 	kill_start_key_binding
 	CreateScreenElement \{type = ContainerElement
@@ -318,6 +319,25 @@ script create_modmenu \{popup = 0}
 	GetScreenElementDims id = <id>
 	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
 
+	CreateScreenElement {
+		type = TextElement
+		id = count_off_text
+		text = 'Count Off: ON'
+		scale = 1
+		rgba = [255 255 255 255]
+		parent = vs_vmenu
+		font = text_a5
+		pos = (0.0, 440.0)
+		event_handlers = [
+			{focus vom_focus params = {item = calibrate popup = <popup>}}
+			{unfocus vom_unfocus params = {item = calibrate popup = <popup>}}
+			{pad_choose togglecountoff}
+		]
+	}
+	<id> :SetTags hilite_pos = (0.0, 440.0)
+	GetScreenElementDims id = <id>
+	<id> :SetTags hilite_dims = (<width> * (1.1, 0.0) + (55.0, 40.0))
+
 
 
 
@@ -387,6 +407,12 @@ script create_modmenu \{popup = 0}
 		SetScreenElementProps \{id = black_background_text text = 'Black Background: OFF'}
 	else
 		SetScreenElementProps \{id = black_background_text text = 'Black Background: ON'}
+	endif
+
+	if (countoffvar = 0)
+		SetScreenElementProps \{id = count_off_text text = 'Count Off: OFF'}
+	else
+		SetScreenElementProps \{id = count_off_text text = 'Count Off: ON'}
 	endif
 
 
@@ -852,6 +878,19 @@ script toggleblackbg
 	else
 		SetScreenElementProps \{id = black_background_text text = 'Black Background: OFF'}
 		change \{black_background = 0}
+	endif
+endscript
+
+
+
+script togglecountoff
+	playsound \{cash}
+	if (countoffvar = 0)
+		SetScreenElementProps \{id = count_off_text text = 'Count Off: ON'}
+		change \{countoffvar = 1}
+	else
+		SetScreenElementProps \{id = count_off_text text = 'Count Off: OFF'}
+		change \{countoffvar = 0}
 	endif
 endscript
 
